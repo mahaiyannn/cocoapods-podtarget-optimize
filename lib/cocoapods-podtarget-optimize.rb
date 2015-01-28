@@ -17,11 +17,11 @@ module Pod
           add_files_to_build_phases
           add_resources_bundle_targets
           create_xcconfig_file
-          create_prefix_header
-          create_dummy_source
           ########################## Added ##########################
           # if the souce build only have dummy.m, ignore this target
-          if native_target.source_build_phase.files.count <= 1
+          if native_target.source_build_phase.files.count > 0
+            create_prefix_header
+          else
             project.targets.pop
             target.native_target = nil
             @native_target = nil
